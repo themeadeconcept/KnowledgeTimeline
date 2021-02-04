@@ -21,6 +21,12 @@ body {
   padding-bottom: 50px;
 }
 
+hr {
+  color: var(--offset);
+  border: 1px solid;
+  margin: 2px;
+}
+
 #main-header {
   background: var(--secondary-color);
   padding: 4rem 0;
@@ -38,9 +44,17 @@ h1 {
   color: var(--primary-color);
 }
 
+h3 {
+  text-align: center;
+}
+
 /* Chevron color */
 .offset {
   color: var(--offset);
+}
+
+#timeline {
+  border-top: 5px solid var(--offset);
 }
 
 #timeline ul {
@@ -69,16 +83,21 @@ h1 {
   padding: 1rem;
   background: var(--secondary-color);
   transition: all 0.5s ease-in-out;
+  /* initially starts all list items as hidden */
+  visibility: hidden;
+  opacity: 0;
 }
 
 /* Right side Animations */
 #timeline ul li:nth-child(odd) div {
   left: 40px;
+  transform: translate(200px, 0);
 }
 
 /* Left side Animations */
 #timeline ul li:nth-child(even) div {
   left: -434px;
+  transform: translate(-200px, 0);
 }
 
 /* Dots */
@@ -89,7 +108,7 @@ h1 {
   bottom: 0;
   width: 25px;
   height: 25px;
-  background: var(--secondary-color);
+  background: inherit;
   /* moves the dot to proper positioning */
   transform: translateX(-50%);
   /* makes the square into a dot */
@@ -119,4 +138,50 @@ h1 {
   right: -15px;
   border-width: 8px 0 8px 16px;
   border-color: transparent transparent transparent var(--secondary-color);
+}
+
+/* Show Boxes */
+#timeline ul li.show div {
+  transform: none;
+  visibility: visible;
+  opacity: 1;
+}
+
+#timeline ul li.show:after {
+  background: var(--secondary-color);
+}
+
+/* media queries */
+@media (max-width: 900px) {
+  /* changes the width of the boxes */
+  #timeline ul li div {
+    width: 250px;
+  }
+
+  /* fixes the left side */
+  #timeline ul li:nth-child(even) div {
+    left: -284px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* media query to set the yellow line 20px from the left when the screen is 600px or smaller */
+  #timeline ul li {
+    margin-left: 20px;
+  }
+
+  #timeline ul li div {
+    /* takes the whole viewport width and takes away 90px's at any screen size once below 600px */
+    width: calc(100vw - 90px);
+  }
+
+  #timeline ul li:nth-child(even) div {
+    left: 40px;
+  }
+
+  #timeline ul li:nth-child(even) div:before {
+    left: -15px;
+    border-width: 8px 16px 8px 0;
+    border-color: transparent var(--secondary-color) transparent transparent;
+  }
 }
